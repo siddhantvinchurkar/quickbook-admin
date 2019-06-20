@@ -1,0 +1,44 @@
+{
+	"short_name": "SJC-Quickbook",
+	"name": "Quickbook - Reserve event venues on the go!",
+	"icons": [
+		{
+			"src": "../images/icons/favicon/48/favicon.png",
+			"type": "image/png",
+			"sizes": "48x48"
+		},
+		{
+			"src": "../images/icons/favicon/72/favicon.png",
+			"type": "image/png",
+			"sizes": "72x72"
+		},
+		{
+			"src": "../images/icons/favicon/96/favicon.png",
+			"type": "image/png",
+			"sizes": "96x96"
+		},
+		{
+			"src": "../images/icons/favicon/144/favicon.png",
+			"type": "image/png",
+			"sizes": "144x144"
+		},
+		{
+			"src": "../images/icons/favicon/192/favicon.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "../mages/icons/favicon/512/favicon.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"background_color": "#202020",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#FFFF00",
+	"start_url": "/",
+	"manifest_version": 2,
+	"version": "1.0",
+	"summary": "This is an administrative console for the quickbook android application."
+}
