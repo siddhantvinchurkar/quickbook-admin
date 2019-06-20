@@ -10,6 +10,7 @@
   },
   "hosting": {
     "public": "/",
+    "target": "quickbook",
     "ignore": [
       "firebase.json",
       "**/.*",
