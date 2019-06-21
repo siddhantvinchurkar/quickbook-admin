@@ -147,8 +147,8 @@ function signIn() {
 
 				document.getElementById('auth_screen').style.display = 'none';
 				document.getElementById('main_screen').style.display = 'block';
-				//document.getElementById('username_profile').innerHTML = user.displayName + '<br />' + user.email;
-				//document.getElementById('username_profile').href = user.photoURL;
+				document.getElementById('user_link').innerHTML = user.displayName + '<br />' + user.email;
+				document.getElementById('user_link').href = user.photoURL;
 
 			}, 1000);
 		}).catch(function (error) {
