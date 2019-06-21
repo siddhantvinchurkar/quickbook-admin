@@ -174,8 +174,8 @@ function clearBookingTable() {
 }
 
 /* Function to add a row to the bookings table */
-function addBookingRow(no = '1', booking_id = 'AJGHD34H4D', first_name = 'Siddhant', last_name = 'Vinchurkar', email_address = 'siddhantvinchurkar@gmail.com', phone_number = '+919900608821', venue_name = 'Auditorium', date = '12/03/19', time_slot = '10 to 2', total_cost = '₹ 1200', payment_status = 'Unpaid', booking_status = 'Unconfirmed', event_status = 'Unconfirmed') {
-	document.getElementById('bookingTableRows').innerHTML += '<tr><td>' + no + '</td><td>' + booking_id + '</td><td>' + first_name + '</td><td>' + last_name + '</td><td>' + email_address + '</td><td>' + phone_number + '</td><td>' + venue_name + '</td><td>' + date + '</td><td>' + time_slot + '</td><td>' + total_cost + '</td><td>' + payment_status + '</td><td>' + booking_status + '</td><td>' + event_status + '</td></tr>';
+function addBookingRow(no = '1', booking_id = 'AJGHD34H4D', first_name = 'Siddhant', last_name = 'Vinchurkar', email_address = 'siddhantvinchurkar@gmail.com', phone_number = '+919900608821', venue_name = 'Auditorium', date = '12/03/19', time_slot = '10 to 2', total_cost = '₹ 1200', payment_status = 'Unpaid', booking_status = 'Unconfirmed', event_status = 'Unconfirmed', actions = 'None') {
+	document.getElementById('bookingTableRows').innerHTML += '<tr><td>' + no + '</td><td>' + booking_id + '</td><td>' + first_name + '</td><td>' + last_name + '</td><td>' + email_address + '</td><td>' + phone_number + '</td><td>' + venue_name + '</td><td>' + date + '</td><td>' + time_slot + '</td><td>' + total_cost + '</td><td>' + payment_status + '</td><td>' + booking_status + '</td><td>' + event_status + '</td><td>' + actions + '</td></tr>';
 }
 
 // Get date string from timestamp
@@ -262,6 +262,15 @@ function confirmBooking(docId = null) {
 					});
 				}
 			});
+		});
+	}
+}
+
+/* Function to delete booking */
+function deleteBooking(docId = null) {
+	if (docId !== null) {
+		db.collection("quickbook-bookings").doc(docId).delete().then((doc) => {
+			M.toast({ html: 'Booking deleted!' });
 		});
 	}
 }
@@ -353,7 +362,8 @@ window.onload = function () {
 			else {
 				event_status = '<span style="font-weight:bolder; color:#FFAAAA;">Not Conducted Yet</span><br /><br /><a rel="noreferrer" onclick="confirmEvent(\'' + doc.id + '\');" class="btn-floating waves-effect waves-light green tooltipped z-depth-5" data-tooltip="Confirm Event" data-position="bottom"><i class="material-icons">event</i></a>';
 			}
-			addBookingRow(index, '<b style="color:#BADA55;">' + doc.data().booking_reference + '</b>', '<b style="color:#EEBB66;">' + doc.data().first_name + '</b>', '<b style="color:#EEBB66;">' + doc.data().last_name + '</b>', '<b>' + doc.data().email.substr(0, doc.data().email.indexOf('@')) + '</b>' + '<span style="color:#FFBBAA;">' + doc.data().email.substr(doc.data().email.indexOf('@'), doc.data().email.length - 1) + '</span>', '<span style="color:#DDDDDD;">' + doc.data().phone.substr(0, 3) + '</span><b>' + doc.data().phone.substr(3, doc.data().phone.length) + '</b>', '<i>' + doc.data().venue_name + '</i>', generateColorCodedDateString(doc.data().booking_timestamp, '#FFFFCC', '#FFCCCC'), generateColorCodedDateString(doc.data().start_timestamp, '#FFFFCC', '#FFCCCC') + '<br />to<br />' + generateColorCodedDateString(doc.data().end_timestamp, '#FFFFCC', '#FFCCCC'), '₹ <b>' + doc.data().total_cost + '</b> /-', payment_status, booking_status, event_status);
+			actions = '<a rel="noreferrer" onclick="deleteBooking(\'' + doc.id + '\');" class="btn-floating waves-effect waves-light red tooltipped z-depth-5" data-tooltip="Delete Booking" data-position="bottom"><i class="material-icons">close</i></a>';
+			addBookingRow(index, '<b style="color:#BADA55;">' + doc.data().booking_reference + '</b>', '<b style="color:#EEBB66;">' + doc.data().first_name + '</b>', '<b style="color:#EEBB66;">' + doc.data().last_name + '</b>', '<b>' + doc.data().email.substr(0, doc.data().email.indexOf('@')) + '</b>' + '<span style="color:#FFBBAA;">' + doc.data().email.substr(doc.data().email.indexOf('@'), doc.data().email.length - 1) + '</span>', '<span style="color:#DDDDDD;">' + doc.data().phone.substr(0, 3) + '</span><b>' + doc.data().phone.substr(3, doc.data().phone.length) + '</b>', '<i>' + doc.data().venue_name + '</i>', generateColorCodedDateString(doc.data().booking_timestamp, '#FFFFCC', '#FFCCCC'), generateColorCodedDateString(doc.data().start_timestamp, '#FFFFCC', '#FFCCCC') + '<br />to<br />' + generateColorCodedDateString(doc.data().end_timestamp, '#FFFFCC', '#FFCCCC'), '₹ <b>' + doc.data().total_cost + '</b> /-', payment_status, booking_status, event_status, actions);
 			actions = '';
 			index++;
 		});
