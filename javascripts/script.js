@@ -236,19 +236,19 @@ function unconfirmBooking(docId = null) {
 /* Function to confirm bookings */
 function confirmBooking(docId = null) {
 	if (docId !== null) {
-		db.collection("quickbook-bookings").doc(docId).update({ booking_status: true }).then((doc) => {
+		db.collection("quickbook-bookings").doc(docId).update({ booking_status: true }).then((doc5) => {
 			Email.send({
 				/**/
 				/*SecureToken: "5644b561-6ce0-41dc-83ae-b0da05bed63d",*/
 				SecureToken: "2f164b5f-e8a3-43fe-9cd5-ceedd2f345ee",
-				To: doc.data().first_name + ' ' + doc.data().last_name + ' <' + doc.data().email + '>',
+				To: doc5.data().first_name + ' ' + doc5.data().last_name + ' <' + doc5.data().email + '>',
 				From: 'SJC Quick Book <email-bot@quickbook.hyperr.space>',
 				Subject: 'SJC QR Code',
 				Body: '<!doctype html><html><body>Please find attached your unique QR code.</body></html>',
 				Attachments: [
 					{
-						name: doc.data().booking_reference + '.png',
-						path: 'https://chart.googleapis.com/chart?cht=qr&chl=' + doc.id + '&chs=547x547&chld=L%7C0'
+						name: doc5.data().booking_reference + '.png',
+						path: 'https://chart.googleapis.com/chart?cht=qr&chl=' + doc5.id + '&chs=547x547&chld=L%7C0'
 					}]
 			})
 				.then((message) => {
