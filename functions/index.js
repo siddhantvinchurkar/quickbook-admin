@@ -26,7 +26,7 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 			var ix2 = 1;
 			querySnapshot2.forEach((doc3)=>{
 				db.collection("quickbook-bookings").doc(doc3.id).update({
-					sequence_number = ix2;
+					sequence_number = ix2
 				}).then((doc4)=>{
 					console.log("Updated successfully!");
 					ix2++;
