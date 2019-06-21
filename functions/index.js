@@ -16,7 +16,7 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 	var db = admin.firestore();
 	var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	db.collection("quickbook-bookings").where("email", "==", document.data().email).where("phone", "==", document.data().phone).orderBy("booking_timestamp", "desc").get().then((querySnapshot)=>{
+	db.collection("quickbook-bookings").where("email", "==", document.email).where("phone", "==", document.phone).orderBy("booking_timestamp", "desc").get().then((querySnapshot)=>{
 		var ix = 1;
 		querySnapshot.forEach((doc1)=>{
 			db.collection("quickbook-bookings").doc(doc1.id).update({
