@@ -17,20 +17,16 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 		querySnapshot.forEach((doc1)=>{
 			db.collection("quickbook-bookings").doc(doc1.id).update({
 				booking_reference: 'QBK-' + ix + '_' + month[doc1.data().booking_timestamp.toDate().getMonth()] + ' ' + doc1.data().booking_timestamp.toDate().getDate() + ', ' + doc1.data().booking_timestamp.toDate().getFullYear()
-			}).then((doc2)=>{
-				console.log("Updated successfully!");
-				ix++;
 			}).catch((e)=>{console.log(e);});
+			ix++;
 		});
 		db.collection("quickbook-bookings").orderBy("booking_timestamp", "desc").get().then((querySnapshot2)=>{
 			var ix2 = 1;
 			querySnapshot2.forEach((doc3)=>{
 				db.collection("quickbook-bookings").doc(doc3.id).update({
 					sequence_number: ix2
-				}).then((doc4)=>{
-					console.log("Updated successfully!");
-					ix2++;
 				}).catch((e)=>{console.log(e);});
+				ix2++;
 			});
 		}).catch((e)=>{console.log(e);});
 	});
