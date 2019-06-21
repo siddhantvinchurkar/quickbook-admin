@@ -8,6 +8,7 @@ install:
 - cd functions/
 - npm install
 - cd ..
+- firebase functions:delete generateBookingIds --force
 after_success:
 - firebase target:apply hosting quickbook quickbook --token $FIREBASE_TOKEN
 - firebase deploy --project tgd-experiment --token $FIREBASE_TOKEN
