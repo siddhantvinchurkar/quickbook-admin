@@ -20,7 +20,6 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 			}).catch((e)=>{console.log(e);});
 			ix++;
 		});
-		return true;
 		db.collection("quickbook-bookings").orderBy("booking_timestamp", "desc").get().then((querySnapshot2)=>{
 			var ix2 = 1;
 			querySnapshot2.forEach((doc3)=>{
@@ -31,7 +30,5 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 			});
 			return true;
 		}).catch((e)=>{console.log(e);});
-		return true;
-	});
-	return true;
+	}).catch((e)=>{console.log(e);});
 });
