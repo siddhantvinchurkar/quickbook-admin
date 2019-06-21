@@ -30,5 +30,6 @@ exports.generateBookingIds = functions.firestore.document('quickbook-bookings/{d
 			});
 			return true;
 		}).catch((e)=>{console.log(e);});
+		return true;
 	}).catch((e)=>{console.log(e);});
 });
