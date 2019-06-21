@@ -32,25 +32,136 @@
 		<main>
 			<!-- Fixed (top) Navigation Bar -->
 			<div class="navbar-fixed">
-				<nav>
+				<nav class="z-depth-5-custom">
 					<div class="nav-wrapper">
 						<a class="brand-logo left valign-wrapper" style="font-size:3em;"><i class="material-icons"
 								style="font-size:1.5em;">collections_bookmark</i>Quickbook Admin</a>
 					</div>
 				</nav>
 			</div>
-			<div class="container">
+			<div id="screen">
 				<!-- Main Content -->
-				<div class="row">
-					<div id="seo" class="col s12 m12 l6 xl6 lottie"></div>
-					<div id="intro" class="col s12 m12 l5 xl5 offset-l1 offset-xl1 center">
-						<span class="title">Hi!</span>
+
+				<!-- Add Venue Modal -->
+				<div id="add_venue_modal" class="modal modal-fixed-footer grey darken-4 white-text">
+					<div class="modal-content">
+						<h1><i class="material-icons left" style="font-size: 1em;">location_on</i>Add New Venue</h1>
+						<div class="container" style="min-height: 250px; margin-top: 125px;">
+							<div class="row">
+								<div class="col s12 m12 l6 xl6 input-field">
+									<i class="material-icons prefix">info</i>
+									<input style="color:#FFFFFF;" placeholder="Butterscotch Oreo" id="venue_name"
+										type="text" class="validate" onkeypress="verifyAddVenueFormDataIntegrity();"
+										onchange="verifyAddVenueFormDataIntegrity();"
+										onblur="verifyAddVenueFormDataIntegrity();" required>
+									<label style="color:#FFFFFF;" for="venue_name">Venue Name</label>
+									<span style="color:#FFFFFF;" class="helper-text"
+										data-error="Enter the name of the venue" data-success="Perfect.">We will use
+										this to identify the venue</span>
+								</div>
+								<div class="col s12 m12 l6 xl6 input-field">
+									<i class="material-icons prefix">code</i>
+									<input style="color:#FFFFFF;" placeholder="OZM44RT6" id="venue_code" type="text"
+										class="validate" onkeypress="verifyAddVenueFormDataIntegrity();"
+										onchange="verifyAddVenueFormDataIntegrity();"
+										onblur="verifyAddVenueFormDataIntegrity();" required>
+									<label style="color:#FFFFFF;" for="venue_code">Venue Code</label>
+									<span style="color:#FFFFFF;" class="helper-text"
+										data-error="Enter a code for the venue" data-success="Perfect.">We will use this
+										to identify the venue on the
+										database</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12 m12 l6 xl6 input-field">
+									<i class="material-icons prefix">monetization_on</i>
+									<input style="color:#FFFFFF;" placeholder="300" id="venue_rate" type="number"
+										class="validate" onkeypress="verifyAddVenueFormDataIntegrity();"
+										onchange="verifyAddVenueFormDataIntegrity();"
+										onblur="verifyAddVenueFormDataIntegrity();" required>
+									<label style="color:#FFFFFF;" for="venue_name">Venue Rate/hr</label>
+									<span style="color:#FFFFFF;" class="helper-text"
+										data-error="Enter the per hour rate of the venue" data-success="Perfect.">We
+										will use this to calculate the total cost</span>
+								</div>
+								<div class="col s12 m12 l6 xl6 input-field">
+									<i class="material-icons prefix">info</i>
+									<input style="color:#FFFFFF;" placeholder="Banana Sasquatch" id="venue_description"
+										type="text" class="validate" onkeypress="verifyAddVenueFormDataIntegrity();"
+										onchange="verifyAddVenueFormDataIntegrity();"
+										onblur="verifyAddVenueFormDataIntegrity();" required>
+									<label style="color:#FFFFFF;" for="venue_code">Venue Description / Comments</label>
+									<span style="color:#FFFFFF;" class="helper-text"
+										data-error="Tell people about this place" data-success="Perfect.">We will use
+										this to define the venue to prospective
+										customers</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer grey darken-4" style="margin-bottom: 50px; padding-right: 50px;">
+						<a id="add_venue_button_accept" rel="noreferrer"
+							class="modal-close waves-effect waves-green blue btn disabled"><i
+								class="material-icons right">location_on</i>Add Venue</a>
+					</div>
+				</div>
+
+				<div id="auth_screen" class="row">
+					<div id="seo" class="col s12 m12 l9 xl9 lottie"></div>
+					<div id="intro" class="col s12 m12 l3 xl3 left">
+						<span class="title left">Hi!</span>
 						<br />
 						<br />
-						<span class="subtitle">Verify your identity first.</span>
-						<a id="sign_in_button"
-							class="waves-effect waves-light btn-large lime accent-2 z-depth-5-custom"><i
+						<span class="subtitle left">Verify your identity first.</span>
+						<a id="sign_in_button" rel="noreferrer"
+							class="waves-effect waves-light btn-large lime accent-2 z-depth-5-custom left"><i
 								class="material-icons right">arrow_forward_ios</i>Sign In</a>
+					</div>
+				</div>
+				<div id="main_screen" class="row">
+					<div class="col s12 m12 l12 xl12">
+						<div class="card grey darken-4 white-text z-depth-5" style="padding:1em;">
+							<div class="card-content">
+								<h3 style="margin-top:-0.4em;">
+									<span class="z-depth-5-custom"
+										style="border:2px solid #FFFFFF; padding:2px 5px 2px 5px;">All bookings<a
+											id="sign_out_button" rel="noreferrer"
+											class="waves-effect waves-light btn-large lime accent-2 z-depth-5-custom right"><i
+												class="material-icons right">exit_to_app</i>Sign
+											Out</a><a id="add_venue_button" rel="noreferrer"
+											class="waves-effect waves-light btn-large lime accent-2 z-depth-5-custom right modal-trigger"
+											data-target="add_venue_modal"><i
+												class="material-icons right">location_on</i>Add New Venue</a></span>
+								</h3>
+								<table id="bookingTable" class="highlight centered responsive-table">
+									<thead style="font-size: 1.2em;">
+										<th style="cursor:default; pointer-events:none;">#</th>
+										<th style="cursor:default; pointer-events:none;">Booking ID</th>
+										<th style="cursor:default; pointer-events:none;">First Name</th>
+										<th style="cursor:default; pointer-events:none;">Last Name</th>
+										<th style="cursor:default; pointer-events:none;">Email Address</th>
+										<th style="cursor:default; pointer-events:none;">Phone Number</th>
+										<th style="cursor:default; pointer-events:none;">Venue</th>
+										<th style="cursor:default; pointer-events:none;">Booking Date And Time</th>
+										<th style="cursor:default; pointer-events:none;">Time Slot</th>
+										<th style="cursor:default; pointer-events:none;">Total Cost</th>
+										<th style="cursor:default; pointer-events:none;">Payment Status</th>
+										<th style="cursor:default; pointer-events:none;">Booking Status</th>
+										<th style="cursor:default; pointer-events:none;">Event Status</th>
+									</thead>
+									<tbody id="bookingTableRows"></tbody>
+								</table>
+								<br />
+								<br />
+								<div class="row" style="margin-bottom:-1em; font-weight:bold; text-align:center;">
+									<div class="col s4 offset-s4 z-depth-5-custom"
+										style="border:2px solid #FFFFFF; padding:2px 5px 2px 5px;">
+										<p><i class="material-icons left">info</i>Data on this page is updated in real
+											time.</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
